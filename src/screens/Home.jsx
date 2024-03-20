@@ -1,29 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import image1 from "../images/image.png";
 import image2 from "../images/masti.png";
 import image3 from "../images/girls.png";
 import Card from "../components/Card";
-import itemImage from "../images/item.png";
+import DATA from "../data/data";
+import useCart from "../hooks/useCart";
+import {Link} from "react-router-dom";
 
 const Home = () => {
-  const items = [
-    { title: "Shell", price: "50$", rating: "4", imga: itemImage },
-    { title: "Book", price: "50$", rating: "3", imga: itemImage },
-    { title: "Pencil", price: "20$", rating: "3", imga: itemImage },
-    { title: "Laptop", price: "100$", rating: "3", imga: itemImage },
-    { title: "Shell", price: "50$", rating: "4", imga: itemImage },
-    { title: "Book", price: "50$", rating: "3", imga: itemImage },
-    { title: "Pencil", price: "20$", rating: "3", imga: itemImage },
-    { title: "Laptop", price: "100$", rating: "3", imga: itemImage },
-    { title: "Shell", price: "50$", rating: "4", imga: itemImage },
-    { title: "Book", price: "50$", rating: "3", imga: itemImage },
-    { title: "Pencil", price: "20$", rating: "3", imga: itemImage },
-    { title: "Laptop", price: "100$", rating: "3", imga: itemImage },
-  ];
+  // const [cart,dispatch]=useCart()
+  const {cart,dispatch}=useCart()
+  console.log(cart);
   return (
     <div>
       <div className="flex flex-row justify-center">
-        <img className="w-2/4" src={image1} alt="#" />
+        <img className="md:flex-shrink-0 w-2/4" src={image1} alt="#" />
         <div className="flex justify-center items-center">
           <img className="w-3/4" src={image2} alt="#" />
         </div>
@@ -61,17 +52,22 @@ const Home = () => {
       }}></div>This Month</div>
       <h1 className="text-3xl font-extrablod">Best Selling Products</h1>
       <div className="grid grid-cols-4">
-        {items.map((item) => {
+        {DATA.map((item) => {
           return (
             <Card
+            key={item.id}
               price={item.price}
-              rating={item.rating}
               title={item.title}
-              imga={item.imga}
+              imga={item.img}
             />
           );
         })}
       </div>
+      <div className="flex flex-col items-end mr-40">
+      <Link to="/cart" className="border border-black py-2 my-10 w-28 rounded-md px-6 hover:bg-blue-500">Cart</Link>
+      <p>Total Added:{cart.length}</p>
+      </div>
+      
     </div>
   );
 };
