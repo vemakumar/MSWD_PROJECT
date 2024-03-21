@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import image1 from "../images/image.png";
 import image2 from "../images/masti.png";
 import image3 from "../images/girls.png";
@@ -6,11 +6,17 @@ import Card from "../components/Card";
 import DATA from "../data/data";
 import useCart from "../hooks/useCart";
 import {Link} from "react-router-dom";
+import Loading from "../components/Loading";
 
 const Home = () => {
   // const [cart,dispatch]=useCart()
-  const {cart,dispatch}=useCart()
+  const {dispatch}=useCart()
+  const [isLoading,setIsLoading]=useState(false);
+  const {cart}=useCart()
   console.log(cart);
+  const handleClick=()=>{
+    dispatch({type:"SET_TOTAL"})
+  }
   return (
     <div>
       <div className="flex flex-row justify-center">
@@ -51,7 +57,7 @@ const Home = () => {
         backgroundColor:"red"
       }}></div>This Month</div>
       <h1 className="text-3xl font-extrablod">Best Selling Products</h1>
-      <div className="grid grid-cols-4">
+      <div className="flex flex-wrap">
         {DATA.map((item) => {
           return (
             <Card
@@ -64,7 +70,7 @@ const Home = () => {
         })}
       </div>
       <div className="flex flex-col items-end mr-40">
-      <Link to="/cart" className="border border-black py-2 my-10 w-28 rounded-md px-6 hover:bg-blue-500">Cart</Link>
+      <Link  onClick={handleClick} to="/cart" className="border border-black py-2 my-10 w-28 rounded-md px-6 hover:bg-blue-500">Cart</Link>
       <p>Total Added:{cart.length}</p>
       </div>
       

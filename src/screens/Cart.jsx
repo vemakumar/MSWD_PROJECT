@@ -4,7 +4,7 @@ import useCart from '../hooks/useCart'
 import { Link } from 'react-router-dom'
 
 const Cart = () => {
-    const {cart}=useCart()
+    const {cart,total}=useCart()
   return (
     <div>
         <div className='flex mr-auto ml-auto mt-6 w-3/4 justify-between p-3 border-2  shadow-lg'>
@@ -30,14 +30,14 @@ const Cart = () => {
                 <input className='outline-none border border-black/60 p-2' type="text" placeholder='coupon code' />
                 <button className='bg-red-600 p-2 mx-2 rounded-sm text-white'>Apply coupon</button>
             </div>
-            <div className='ml-48 border border-black mt-6 w-1/4  p-3 ' >
-               <p>CartTotal:</p> <br/>
-               <p>Subtotal</p> 
+            <div className='flex flex-col gap-2 ml-48 border border-black mt-6 w-1/4  p-4 ' >
+               <p>CartTotal:{cart.length}</p> <br/>
+               <p>Subtotal:{total}$</p> 
                <hr />
-                <p>Shipping</p>
+                <p>Shipping:Free</p>
                 <hr />
-                <p>Total</p>
-                <button className='bg-red-600 p-2 ml-3 rounded-md text-white '>Process to Checkout</button>
+                <p>Total{total}$</p>
+                <Link to="/checkout" className='bg-red-600 p-2 ml-3  w-56 rounded-md text-white '>Process to Checkout</Link>
             </div>
         </div>
     </div>

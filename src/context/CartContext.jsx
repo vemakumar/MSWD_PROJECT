@@ -10,13 +10,22 @@ const cartReducer=(state,action)=>{
             return{
                 cart:state.cart
             }
-        
+        case "SET_TOTAL":
+            let ans=0
+            for(let i=0;i<state.cart.length;i++){
+                ans=ans+state.cart[i].price
+            }
+            return {
+                cart:state.cart,
+                total:ans
+            }
     }
 
 }
 export const CartContextProvider = ({ children }) => {
     const[state,dispatch]=useReducer(cartReducer,{
         cart:[],
+        total:0
     })
   return (
     <CartContext.Provider value={{...state,dispatch}}>
